@@ -39,12 +39,22 @@ PATCHSET_DEF(_secmon_2_patchset,
 	{ 0xAC8 + 0xB3C, _NOP() }, //Version.
 	{ 0xAC8 + 0xB58, _NOP() } //Sections SHA2.
 );
+
+PATCHSET_DEF(_secmon_5_patchset,
+	//Patch package2 decryption and signature/hash checks.
+	{ 0x1218 + 0x6E68, _NOP() }, //Header signature.
+	{ 0x1218 + 0x6E74, _NOP() }, //Version.
+	{ 0x1218 + 0x6FE4, _NOP() }, //Sections SHA2.
+	{ 0x1218 + 0x2DC, _NOP() } //Unknown.
+);
+
 PATCHSET_DEF(_secmon_6_patchset,
-	{ 0x12b0 + 0x4d0, _NOP() },
-	{ 0x12b0 + 0x4dc, _NOP() },
-	{ 0x12b0 + 0x794, _NOP() },
-	{ 0x12b0 + 0xb30, _NOP() }//,
-	//{ 0x12b0 + 0xa18 , _NOP() } // BootConfig Retail Check
+	//Patch package2 decryption and signature/hash checks.
+	{ 0x12B0 + 0x4D0, _NOP() }, //Header signature.
+	{ 0x12B0 + 0x4DC, _NOP() }, //Version.
+	{ 0x12B0 + 0x794, _NOP() }, //Sections SHA2.
+	{ 0x12B0 + 0xB30, _NOP() } /*,*/ //Unknown.
+	//{ 0x12B0 + 0xA18 , _NOP() } // BootConfig Retail Check
 );
 
 /*
@@ -63,7 +73,7 @@ static const pkg1_id_t _pkg1_ids[] = {
 	{ "20170210155124", 0, 0x1900, 0x3FE0, { 0, 1, 2 }, 0x4002D000, _secmon_2_patchset }, //2.0.0
 	{ "20170519101410", 1, 0x1A00, 0x3FE0, { 0, 1, 2 }, 0x4002D000, NULL }, //3.0.0
 	{ "20170710161758", 2, 0x1A00, 0x3FE0, { 0, 1, 2 }, 0x4002D000, NULL }, //3.0.1
-	{ "20170921172629", 3, 0x1900, 0x3FE0, { 1, 2, 0 }, 0x4002B000, NULL }, //4.0.0
+	{ "20170921172629", 3, 0x1800, 0x3FE0, { 1, 2, 0 }, 0x4002B000, _secmon_5_patchset }, //4.0.0
 	{ "20180220163747", 4, 0x1900, 0x3FE0, { 1, 2, 0 }, 0x4002B000, _secmon_6_patchset }, //5.0.0
 	{ NULL, 0, 0, 0, 0 } //End.
 };

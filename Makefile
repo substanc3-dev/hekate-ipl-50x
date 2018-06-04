@@ -49,12 +49,15 @@ LDFLAGS = $(ARCH) -nostartfiles -lgcc -Wl,--nmagic,--gc-sections
 
 .PHONY: all clean
 
-all: $(BUILD)/$(TARGET)
+all: $(BUILD) $(BUILD)/$(TARGET)
 
 clean:
 	@rm -rf $(OBJS)
 	@rm -rf $(BUILD)/$(TARGET).elf
 	@rm -rf $(BUILD)/$(TARGET)
+
+$(BUILD):
+	mkdir -p $(BUILD)
 
 $(BUILD)/$(TARGET): $(BUILD)/$(TARGET).elf
 	$(OBJCOPY) -S -O binary $< $@
